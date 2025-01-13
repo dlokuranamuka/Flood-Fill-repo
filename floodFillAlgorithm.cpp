@@ -99,7 +99,11 @@ int main(void) {
 
 		// Flood fill the maze
 		// The flood fill array is filled with the number of steps to reach the target
-		while (accArray[0][0] == 0){ // While the initial position is not accessed
+		int steps = 0;
+		int prevSteps = 0;
+		//while (accArray[0][0] == 0){ // While the initial position is not accessed
+		do { // While the initial position is not accessed
+			prevSteps = steps;
 			for (int i = 0; i < rows; i++) 
 			{
 				for (int j = 0; j < cols; j++) 
@@ -110,26 +114,31 @@ int main(void) {
 						{
 							accArray[i][j + 1] = 1; // Set the position as accessed
 							editArray[i][j + 1] = editArray[i][j] + 1; // Set the number of steps to reach the position
+							steps ++;
 						}
 						if (scanWallArray[(i * 2) + 2][j] == 0 && accArray[i + 1][j] == 0) // If the bottom position is not coverd by a wall and not accessed
 						{
 							accArray[i + 1][j] = 1;
 							editArray[i + 1][j] = editArray[i][j] + 1;
+							steps ++;
 						}
 						if (scanWallArray[(i * 2) + 1][j] == 0 && accArray[i][j - 1] == 0) // If the left position is not coverd by a wall and not accessed
 						{
 							accArray[i][j - 1] = 1;
 							editArray[i][j - 1] = editArray[i][j] + 1;
+							steps ++;
 						}
 						if (scanWallArray[(i * 2)][j] == 0 && accArray[i - 1][j] == 0) // If the top position is not coverd by a wall and not accessed
 						{
 							accArray[i - 1][j] = 1;
 							editArray[i - 1][j] = editArray[i][j] + 1;
+							steps ++;
 						}
 					}
 				}
 			}
 		}
+		while (steps != prevSteps); // If the number of steps is not changed, the maze is fully accessed
 
 		// Jumping to the next position
 		// The position with the least number of steps is selected
