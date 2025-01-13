@@ -101,8 +101,7 @@ int main(void) {
 		// The flood fill array is filled with the number of steps to reach the target
 		int steps = 0;
 		int prevSteps = 0;
-		//while (accArray[0][0] == 0){ // While the initial position is not accessed
-		do { // While the initial position is not accessed
+		do {
 			prevSteps = steps;
 			for (int i = 0; i < rows; i++) 
 			{
